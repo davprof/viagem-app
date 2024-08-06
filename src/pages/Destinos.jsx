@@ -20,7 +20,7 @@ const Destinos = () => {
         { nome: 'Moscou', descricao: 'A capital da Rússia.', distancia: 11795 },
         { nome: 'Pequim', descricao: 'A capital da China.', distancia: 17856 }
     ]);
-  
+
     const adicionarDestino = (novoDestino) => {
       setDestinos([...destinos, novoDestino]);
     };
