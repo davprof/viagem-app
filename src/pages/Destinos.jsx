@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 
 import FormDestino from '../components/destinos/FormDestino';
 import Destino from '../components/destinos/Destino';
+import Detalhes from '../components/destinos/Detalhes';
 
 const Destinos = () => {
+  const [destino, setDestino] = useState(null);
+
     // distância em quilometros
     const [destinos, setDestinos] = useState([
         { nome: 'Paris', descricao: 'A cidade do amor.', distancia: 9377 },
@@ -23,10 +26,11 @@ const Destinos = () => {
     };
     
     return <>
-        <FormDestino adicionarDestino={adicionarDestino} />
-            {destinos.map((destino, index) => (
-              <Destino key={index} nome={destino.nome} descricao={destino.descricao} distancia={destino.distancia} />
-            ))}
+          <Detalhes destino={destino} />
+          <FormDestino adicionarDestino={adicionarDestino} />
+              {destinos.map((destino, index) => (
+                <Destino key={index} destino={destino} setDestino={setDestino} />
+              ))}
     </>;
   }
 
