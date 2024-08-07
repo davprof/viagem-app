@@ -8,6 +8,7 @@ const Detalhes = ({ destino }) => {
   const [tipoEstalagem, setTipoEstalagem] = useState('padrão');
   const [participantes, setParticipantes] = useState(1);
   const [diasEstadia, setDiasEstadia] = useState(0);
+  const [numeroDeVoos, setNumeroDeVoos] = useState(0);
   const [custoVoo, setCustoVoo] = useState(0);
   const [custoExtraDeslocamento, setCustoExtraDeslocamento] = useState(0);
   const [custoTotalEstalagem, setCustoEstalagem] = useState(0);
@@ -29,7 +30,8 @@ const Detalhes = ({ destino }) => {
     const diasEstadia = (volta - ida) / (1000 * 60 * 60 * 24);
     const semanasEstadia = Math.ceil(diasEstadia / 7);
     
-    const custoVoo = (distancia > 2000 ? 2 * 1500 : 1500) * participantes;
+    const numeroDeVoos = distancia > 2000 ? 2 : 1;
+    const custoVoo = (numeroDeVoos * 1500) * participantes;
     let custoExtraDeslocamento = 0;
   
     if (distancia > 2000) {
@@ -40,6 +42,7 @@ const Detalhes = ({ destino }) => {
     const custoTotalEstalagem = semanasEstadia * custoEstalagem * (1 + (participantes - 1) * 0.25);
     const total = custoVoo + custoExtraDeslocamento + custoTotalEstalagem;
 
+    setNumeroDeVoos(numeroDeVoos);
     setDiasEstadia(diasEstadia);
     setCustoVoo(custoVoo);
     setCustoExtraDeslocamento(custoExtraDeslocamento);
@@ -59,6 +62,7 @@ const Detalhes = ({ destino }) => {
     
     return <>
         <h2> { destino ? <p>{diasEstadia} dias de estadia em {destino.nome} para {participantes} pessoas </p> : <p>Escolha um destino</p> }</h2>
+        <h2><p>Número de voos: {numeroDeVoos}</p></h2>
         <label>Data de Ida:
         <input type="date" value={dataIda} onChange={(e) => setDataIda(e.target.value)} />
         </label>
